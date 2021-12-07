@@ -1,26 +1,39 @@
 # Glance
 
-## Glance is lightweight library that allows you debug view hierarchy right from you mobile device or simulator
+### Glance is lightweight library that allows you debug view hierarchy right from you mobile device or simulator
 
 
 ![](Assets/1.png) ![](Assets/2.png)
 
+## Installation
 
-### Usage
-
- Suggested use-case is to attach Glance to shake gesture in Application Delegate
+### Swift Package Manager
 
 ```
-open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-    super.motionEnded(motion, with: event)
-    if motion == .motionShake {
-        guard let window = UIApplication.shared.windows.first else { return }
-        Glance.main.debug(view: window)
+dependencies: [
+    .package(url: "https://github.com/nikitabelopotapov/Glance.git", .upToNextMajor(from: "0.0.1"))
+]
+```
+
+
+## Usage
+
+ Suggested use-case is to attach Glance to shake gesture in UIWindow extension
+
+```
+import Glance
+
+extension UIWindow {
+    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+        if motion == .motionShake {
+            Glance.main.debug(view: self)
+        }
     }
 }
 ```
 
-### Custom views
+## Custom views
 
 In order you have any custom or not supported view (such as view that drows in content in CGContext), you can provide custom.
 
@@ -47,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-### View properties (Beta)
+## View properties (Beta)
 
 ![](Assets/3.png) ![](Assets/4.png)
 
